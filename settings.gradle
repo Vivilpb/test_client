@@ -1,0 +1,12 @@
+rootProject.name = 'test_client'
+
+include ':app-service'
+include ':model'
+include ':usecase'
+project(':app-service').projectDir = file('./applications/app-service')
+project(':model').projectDir = file('./domain/model')
+project(':usecase').projectDir = file('./domain/usecase')
+include ':rest-consumer'
+project(':rest-consumer').projectDir = file('./infrastructure/driven-adapters/rest-consumer')
+include ':date-time-helper'
+project(':date-time-helper').projectDir = file('./infrastructure/helpers/date-time-helper')
