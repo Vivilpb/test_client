@@ -31,7 +31,7 @@ public class RestConsumerConfig {
     public WebClient getWebClient() {
         return WebClient.builder()
                 .baseUrl(url)
-               // .filter(metricsFilter)
+                // .filter(metricsFilter)
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, "application/json")
                 .clientConnector(getClientHttpConnector())
                 .build();

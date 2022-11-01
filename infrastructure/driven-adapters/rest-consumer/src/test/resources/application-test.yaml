@@ -1,0 +1,3 @@
+adapter:
+  restconsumer:
+    url: "http://localhost:8080/cosa"
