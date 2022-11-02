@@ -19,16 +19,20 @@ import java.io.IOException;
 
 
 @SpringBootTest(classes = {co.com.bancolombia.consumer.FraudMonitoringClient.class, co.com.bancolombia.consumer.config.RestConsumerConfig.class})
-@TestPropertySource(locations="classpath:test.properties")
+@TestPropertySource(locations = "classpath:test.properties")
 class FraudMonitoringClientTest {
     @Autowired
     private FraudMonitoringClient fraudMonitoringClient;
     public static MockWebServer mockBackEnd;
 
+    @Value("${adapter.restconsumer.port}")
+    private static int port=9000;
+
     @BeforeAll
     static void setUp() throws IOException {
         mockBackEnd = new MockWebServer();
-        mockBackEnd.start(5000);
+        System.out.println("------------------>"+ port);
+        mockBackEnd.start(port);
     }
 
     @AfterAll
@@ -37,16 +41,12 @@ class FraudMonitoringClientTest {
     }
 
 
-
     @Test
     void shouldGenerateCustomerSession() {
         mockBackEnd.enqueue(new MockResponse()
                 .setBody("{\"csid\":\"111111\", \"date\":\"20200405\", \"time\":\"231234333\"}")
                 .addHeader("Content-Type", "application/json"));
 
-        String baseUrl = String.format("http://localhost:%s",
-                mockBackEnd.getPort());
-//        mockBackEnd.
         System.out.println(mockBackEnd.getPort());
 
         //fraudMonitoringClient = new FraudMonitoringClient(WebClient.create(baseUrl));
