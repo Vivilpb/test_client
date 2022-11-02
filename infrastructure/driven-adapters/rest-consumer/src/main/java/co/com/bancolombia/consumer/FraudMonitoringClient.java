@@ -17,7 +17,7 @@ public class FraudMonitoringClient implements CustomerSessionRepository {
     @Override
     public Mono<CustomerSession> generateCustomerSession() {
         LocalDateTimeHelper localDateTimeHelper = new LocalDateTimeHelper();
-        return client.get().retrieve().bodyToMono(CustomerSessionResponse.class).map(
+        return client.get().uri("/csid").retrieve().bodyToMono(CustomerSessionResponse.class).map(
                 customerSessionResponse -> CustomerSession.builder().csid(customerSessionResponse.getCSID())
                         .date(
                                 localDateTimeHelper.toDate(customerSessionResponse.getDate(), customerSessionResponse.getTime())
